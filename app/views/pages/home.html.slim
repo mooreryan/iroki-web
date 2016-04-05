@@ -1,0 +1,38 @@
+- provide :title, ''
+
+.row
+  = form_tag controller: 'pages', action: 'home'
+    = label_tag :newick
+    = text_field_tag :newick
+
+    = label_tag :color_map
+    = text_field_tag :color_map
+
+    = label_tag :name_map
+    = text_field_tag :name_map
+
+    = check_box_tag(:color_branches)
+    = label_tag(:color_branches, "Color branches?")
+
+    = check_box_tag(:color_taxa_names)
+    = label_tag(:color_taxa_names, "Color taxa names?")
+
+    = check_box_tag(:exact)
+    = label_tag(:exact, "Exact matching?")
+
+    = label_tag :remove, "Show bootstraps above"
+    = select_tag :remove, options_for_select((0..100).step(5).to_a)
+
+    = submit_tag 'Submit', class: 'button radius tiny info'
+
+- if @newick
+  .row
+    p = @newick
+
+- if @color_map
+  .row
+    p = @color_map
+
+- if @name_map
+  .row
+    p = @name_map
