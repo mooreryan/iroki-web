@@ -1,3 +1,6 @@
+require "iroki_lib"
+require "fileutils"
+
 module ApplicationHelper
   # Returns the full title on a per-page basis.
   #
@@ -13,5 +16,22 @@ module ApplicationHelper
     else
       "#{base_title} | #{page_title}"
     end
+  end
+
+  def self.upload io
+    new_f =
+      Rails.root.join("public",
+                      "uploads",
+                      io.original_filename)
+
+    File.open(new_f, "w") do |file|
+      file.write(io.read)
+    end
+
+    new_f
+  end
+
+  def self.remove_upload fname
+    FileUtils.rm fname
   end
 end

@@ -1,10 +1,13 @@
 - provide :title, ''
 
 .row
-  = form_tag controller: 'pages', action: 'home'
+  = form_tag({controller: 'pages', action: 'home'}, multipart: true) do
     = label_tag :newick
-    = text_field_tag :newick
+    = file_field_tag :newick
+    = submit_tag 'Submit', class: 'button radius tiny info'
 
+.row
+  = form_tag controller: 'pages', action: 'home'
     = label_tag :color_map
     = text_field_tag :color_map
 
@@ -20,8 +23,8 @@
     = check_box_tag(:exact)
     = label_tag(:exact, "Exact matching?")
 
-    = label_tag :remove, "Show bootstraps above"
-    = select_tag :remove, options_for_select((0..100).step(5).to_a)
+    = label_tag :remove_below, "Show bootstraps above"
+    = select_tag :remove_below, options_for_select((0..100).step(5).to_a)
 
     = submit_tag 'Submit', class: 'button radius tiny info'
 
@@ -36,3 +39,8 @@
 - if @name_map
   .row
     p = @name_map
+
+- if @contents
+  .row
+    h2 Contents
+    p = @contents
