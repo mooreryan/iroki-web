@@ -19,10 +19,11 @@ module ApplicationHelper
   end
 
   def self.upload io
+    time_now = Time.now.strftime("%Y%m%d%H%M%S%L")
+    new_basename = "#{io.original_filename}.#{time_now}"
+
     new_f =
-      Rails.root.join("public",
-                      "uploads",
-                      io.original_filename)
+      Rails.root.join("public", "uploads", new_basename)
 
     File.open(new_f, "w") do |file|
       file.write(io.read)

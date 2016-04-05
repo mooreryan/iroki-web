@@ -4,15 +4,12 @@
   = form_tag({controller: 'pages', action: 'home'}, multipart: true) do
     = label_tag :newick
     = file_field_tag :newick
-    = submit_tag 'Submit', class: 'button radius tiny info'
 
-.row
-  = form_tag controller: 'pages', action: 'home'
     = label_tag :color_map
-    = text_field_tag :color_map
+    = file_field_tag :color_map
 
     = label_tag :name_map
-    = text_field_tag :name_map
+    = file_field_tag :name_map
 
     = check_box_tag(:color_branches)
     = label_tag(:color_branches, "Color branches?")
@@ -28,19 +25,15 @@
 
     = submit_tag 'Submit', class: 'button radius tiny info'
 
-- if @newick
+- if @newick_contents
   .row
-    p = @newick
+    h2 Newick
+    p = @newick_contents
 
-- if @color_map
   .row
-    p = @color_map
+    h2 Color map
+    p = @color_map_contents
 
-- if @name_map
   .row
-    p = @name_map
-
-- if @contents
-  .row
-    h2 Contents
-    p = @contents
+    h2 Name map
+    p = @name_map_contents

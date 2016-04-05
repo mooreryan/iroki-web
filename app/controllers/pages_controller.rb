@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    if params[:newick]
+    if params[:newick] && params[:color_map] && params[:name_map]
       @newick = params[:newick]
       @color_map = params[:color_map]
       @name_map = params[:name_map]
@@ -11,10 +11,16 @@ class PagesController < ApplicationController
 
 
       @newick_f = ApplicationHelper::upload params[:newick]
+      @color_map_f = ApplicationHelper::upload params[:color_map]
+      @name_map_f = ApplicationHelper::upload params[:name_map]
 
-      @contents = File.open(@newick_f).read
+      @newick_contents = File.open(@newick_f).read
+      @color_map_contents = File.open(@color_map_f).read
+      @name_map_contents = File.open(@name_map_f).read
 
       ApplicationHelper::remove_upload @newick_f
+      ApplicationHelper::remove_upload @color_map_f
+      ApplicationHelper::remove_upload @name_map_f
 
       # IrokiLib::Main::main(color_branches: @color_branches,
       #                      color_taxa_names: @color_taxa_names,
