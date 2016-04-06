@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'citation' => 'pages#citation', as: :citation # gives you citation_path
 
   match 'home' => 'pages#home', via: [:get, :post]
+  post 'submit' => 'pages#submit', as: :submit
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

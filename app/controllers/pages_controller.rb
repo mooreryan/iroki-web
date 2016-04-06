@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
   def home
+  end
+
+  def submit
     if params[:newick] && params[:color_map] && params[:name_map]
       @newick = params[:newick]
       @color_map = params[:color_map]
@@ -27,7 +30,6 @@ class PagesController < ApplicationController
                              newick_f: @newick.tempfile.path,
                              out_f: outf.path)
         send_file outf.path, type: "text"
-
       rescue AbortIf::Exit => e
         @apple ||= e.message
       end
