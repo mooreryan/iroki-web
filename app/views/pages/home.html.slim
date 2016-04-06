@@ -25,19 +25,6 @@
 
     = submit_tag 'Submit', class: 'button radius tiny info'
 
-- if @newick_contents
-  .row
-    h2 Newick
-    p = @newick_contents
-
-  .row
-    h2 Color map
-    p = @color_map_contents
-
-  .row
-    h2 Name map
-    p = @name_map_contents
-
-  .row
-    h2 Nexus
-    p = @outf_contents
+- if @apple
+  H1 ERROR
+  p = @apple

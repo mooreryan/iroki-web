@@ -1,5 +1,8 @@
 require "iroki_lib"
 require "fileutils"
+require 'tempfile'
+require 'weakref'
+
 
 module ApplicationHelper
   # Returns the full title on a per-page basis.
@@ -16,23 +19,5 @@ module ApplicationHelper
     else
       "#{base_title} | #{page_title}"
     end
-  end
-
-  def self.upload io
-    time_now = Time.now.strftime("%Y%m%d%H%M%S%L")
-    new_basename = "#{io.original_filename}.#{time_now}"
-
-    new_f =
-      Rails.root.join("public", "uploads", new_basename)
-
-    File.open(new_f, "w") do |file|
-      file.write(io.read)
-    end
-
-    new_f
-  end
-
-  def self.remove_upload fname
-    FileUtils.rm fname
   end
 end
