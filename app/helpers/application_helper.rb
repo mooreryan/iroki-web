@@ -1,4 +1,4 @@
-require "iroki_lib"
+require "iroki"
 require "fileutils"
 require 'tempfile'
 require 'weakref'

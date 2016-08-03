@@ -47,5 +47,5 @@ end
 
 gem 'slim-rails', '~> 3.0', '>= 3.0.1'
 gem 'foundation-rails', '~> 6.2', '>= 6.2.0.1'
-gem 'iroki_lib', '~> 0.0.1'
+gem 'iroki', '~> 0.0.11'
 # gem 'carrierwave', '~> 0.11.0'
