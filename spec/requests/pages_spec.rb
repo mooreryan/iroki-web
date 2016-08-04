@@ -46,5 +46,4 @@ describe "pages", type: :feature do
 
     it_should_behave_like "all pages"
   end
-
 end

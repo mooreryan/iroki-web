@@ -14,10 +14,12 @@ class PagesController < ApplicationController
     @single_color     = params[:single_color]
     @auto_color       = params[:auto_color]
 
-    # p [:debug_params, params]
-
-    basein = File.basename(@newick.original_filename,
-                           File.extname(@newick.original_filename))
+    if @newick
+      basein = File.basename(@newick.original_filename,
+                             File.extname(@newick.original_filename))
+    else
+      basein = "apple"
+    end
 
     newick_path    = @newick.tempfile.path if @newick
     color_map_path = @color_map.tempfile.path if @color_map
@@ -28,6 +30,8 @@ class PagesController < ApplicationController
       Tempfile.new ["#{basein}.", ".nex"]
 
     begin
+      flash.now[:notice] = "Processing #{newick_path}"
+
       Iroki::Main::main(color_branches: @color_branches,
                         color_taxa_names: @color_labels,
                         exact: @exact,
@@ -44,6 +48,7 @@ class PagesController < ApplicationController
       send_file outf.path, type: "text"
     rescue AbortIf::Exit => e
       @apple ||= e.message
+      render :error
     end
   end
 
@@ -51,5 +56,8 @@ class PagesController < ApplicationController
   end
 
   def contact
+  end
+
+  def error
   end
 end
