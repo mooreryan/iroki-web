@@ -49,21 +49,25 @@ $global-font-size: 100%;
 $global-width: rem-calc(1200);
 $global-lineheight: 1.5;
 $foundation-palette: (
-  primary: #2199e8,
-  secondary: #777,
+  /* primary: #2199e8, */
+  primary: #00bcd4,
+  /* secondary: #777, */
+  secondary: #ff5252,
   success: #3adb76,
   warning: #ffae00,
   alert: #ec5840,
 );
+/* $primary: map-get */
 $light-gray: #e6e6e6;
 $medium-gray: #cacaca;
 $dark-gray: #8a8a8a;
 $black: #0a0a0a;
 $white: #fefefe;
-$body-background: $white;
+/* $body-background: $white; */
+$body-background: map-get($foundation-palette, primary);
 $body-font-color: $black;
-//$body-font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
-$body-font-family: Optima, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+$body-font-family: Roboto, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+/* $body-font-family: Optima, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; */
 $body-antialiased: true;
 $global-margin: 1rem;
 $global-padding: 1rem;
@@ -140,7 +144,7 @@ $code-font-weight: $global-weight-normal;
 $code-background: $light-gray;
 $code-border: 1px solid $medium-gray;
 $code-padding: rem-calc(2 5 1);
-$anchor-color: $primary-color;
+$anchor-color: $secondary-color;
 $anchor-color-hover: scale-color($anchor-color, $lightness: -14%);
 $anchor-text-decoration: none;
 $anchor-text-decoration-hover: none;
@@ -323,7 +327,8 @@ $flexvideo-ratio-widescreen: 16 by 9;
 // 19. Forms
 // ---------
 
-$fieldset-border: 1px solid $medium-gray;
+/* $fieldset-border: 1px solid $medium-gray; */
+$fieldset-border: 1px solid $white;
 $fieldset-padding: rem-calc(20);
 $fieldset-margin: rem-calc(18 0);
 $legend-padding: rem-calc(0 3);
@@ -511,14 +516,18 @@ $show-header-for-stacked: false;
 // --------
 
 $tab-margin: 0;
-$tab-background: $white;
-$tab-background-active: $light-gray;
+$tab-background: $light-gray;
+/* $tab-background-active: $light-gray; */
+$tab-background-active: $white;
 $tab-item-font-size: rem-calc(12);
-$tab-item-background-hover: $white;
+/* $tab-item-background-hover: $white; */
+$tab-item-background-hover: scale-color(map-get($foundation-palette, secondary), $lightness: 25%);
 $tab-item-padding: 1.25rem 1.5rem;
+/* $tab-item-padding: 0px 2em; */
 $tab-expand-max: 6;
 $tab-content-background: $white;
-$tab-content-border: $light-gray;
+/* $tab-content-border: $light-gray; */
+$tab-content-border: $black;
 $tab-content-color: foreground($tab-background, $primary-color);
 $tab-content-padding: 1rem;
 
@@ -560,8 +569,64 @@ $tooltip-radius: $global-radius;
 // -----------
 
 $topbar-padding: 0.5rem;
-$topbar-background: $light-gray;
+/* $topbar-background: $light-gray; */
+$topbar-background: $black;
 $topbar-submenu-background: $topbar-background;
 $topbar-title-spacing: 1rem;
 $topbar-input-width: 200px;
 $topbar-unstack-breakpoint: medium;
+
+/* My settings */
+
+.card-form {
+  position: relative;
+  top: 25px;
+  width: 400px;
+  border-radius: 10px;
+  background: $white;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
+
+  .tabs {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 55px; */
+    /* font-size: 20px; */
+    background: map-get($foundation-palette, secondary);
+    border-radius: 10px 10px 0 0;
+    border-width: 4px;
+
+
+    a {
+      font-size: 1.5em;
+      color: $black;
+      font-weight: bold;
+      border-style: solid;
+      border-top-style: none;
+      border-bottom-style: none;
+      border-color: $black;
+      border-width: 3px;
+    }
+  }
+
+  .tabs-content {
+    border-width: 4px;
+  }
+}
+
+.jawn {
+  font-size: 1.25em;
+}
+
+#color-map-label {
+  border-right-width: 1.5px;
+}
+
+#abundance-based-label {
+  border-light-width: 1.5px;
+}
+
+.tabs-content {
+  border-radius: 0 0 10px 10px;
+}

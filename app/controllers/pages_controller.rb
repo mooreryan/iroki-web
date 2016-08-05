@@ -60,4 +60,7 @@ class PagesController < ApplicationController
 
   def error
   end
+
+  def color
+  end
 end

@@ -1,0 +1,64 @@
+- provide :title, 'Color'
+
+.row.card-form
+  ul#apple-tabs.tabs data-tabs=""
+    li.tabs-title.is-active
+      a aria-selected="true" href="#color-map" Explicit
+    li.tabs-title
+      a href="#abundance-based" Gradient
+  .tabs-content data-tabs-content="apple-tabs"
+    #color-map.tabs-panel.is-active
+      = form_tag({controller: 'pages', action: 'submit'}, multipart: true) do
+        fieldset.fieldset
+          legend. Files
+          = label_tag :newick_file
+          = file_field_tag :newick_file
+
+          = label_tag :color_map
+          = file_field_tag :color_map
+
+          = label_tag :name_map
+          = file_field_tag :name_map
+
+        fieldset.fieldset
+          legend Options
+          = check_box_tag(:color_branches)
+          = label_tag(:color_branches, "Color branches?")
+
+          = check_box_tag(:color_labels)
+          = label_tag(:color_labels, "Color labels?")
+
+          = check_box_tag(:exact)
+          = label_tag(:exact, "Exact matching?")
+
+          = label_tag(:auto_color, "Auto color palettes")
+          = select_tag(:auto_color, options_for_select([["Kelly", "kelly"]]))
+
+        = submit_tag 'Submit', class: 'expanded button secondary'
+
+    #abundance-based.tabs-panel
+      = form_tag({controller: 'pages', action: 'submit'}, multipart: true) do
+        fieldset.fieldset
+          legend Files
+          = label_tag :newick_file
+          = file_field_tag :newick_file
+
+          = label_tag :biom_file
+          = file_field_tag :biom_file
+
+        fieldset.fieldset
+          legend Options
+          = check_box_tag(:color_branches)
+          = label_tag(:color_branches, "Color branches?")
+
+          = check_box_tag(:color_labels)
+          = label_tag(:color_labels, "Color labels?")
+
+          fieldset.fieldset
+            legend Color gradient
+            = radio_button_tag(:single_color, true)
+            = label_tag(:single_color_true, "Single color")
+            = radio_button_tag(:single_color, false)
+            = label_tag(:single_color_false, "Two color")
+
+        = submit_tag 'Submit', class: 'expanded button secondary'

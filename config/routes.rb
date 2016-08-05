@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get 'contact' => 'pages#contact', as: :contact # gives you contact_path
   get 'citation' => 'pages#citation', as: :citation # gives you citation_path
 
-  match 'home' => 'pages#home', via: [:get, :post]
+  match 'color' => 'pages#color', via: [:get, :post]
+  # match 'home' => 'pages#home', via: [:get, :post]
   post 'submit' => 'pages#submit', as: :submit
 
   # The priority is based upon order of creation: first created -> highest priority.
