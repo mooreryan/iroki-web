@@ -522,7 +522,7 @@ $tab-background-active: $white;
 $tab-item-font-size: rem-calc(12);
 /* $tab-item-background-hover: $white; */
 $tab-item-background-hover: scale-color(map-get($foundation-palette, secondary), $lightness: 25%);
-$tab-item-padding: 1.25rem 1.5rem;
+$tab-item-padding: 1.25rem 1.75rem; // 1.5rem;
 /* $tab-item-padding: 0px 2em; */
 $tab-expand-max: 6;
 $tab-content-background: $white;
@@ -555,8 +555,10 @@ $titlebar-icon-spacing: 0.25rem;
 // 35. Tooltip
 // -----------
 
-$has-tip-font-weight: $global-weight-bold;
-$has-tip-border-bottom: dotted 1px $dark-gray;
+/* $has-tip-font-weight: $global-weight-bold; */
+$has-tip-font-weight: none;
+/* $has-tip-border-bottom: dotted 1px $dark-gray; */
+$has-tip-border-bottom: none;
 $tooltip-background-color: $black;
 $tooltip-color: $white;
 $tooltip-padding: 0.75rem;
@@ -581,10 +583,10 @@ $topbar-unstack-breakpoint: medium;
 .card-form {
   position: relative;
   top: 25px;
-  width: 400px;
+  width: 500px;
   border-radius: 10px;
   background: $white;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.4);
 
   .tabs {
     width: 100%;
