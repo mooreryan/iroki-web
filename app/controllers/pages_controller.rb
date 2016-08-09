@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def home
+    @color_map_title = "Color the tree with an explicit color map file."
   end
 
   def submit

@@ -66,7 +66,7 @@ $white: #fefefe;
 /* $body-background: $white; */
 $body-background: map-get($foundation-palette, primary);
 $body-font-color: $black;
-$body-font-family: Roboto, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+$body-font-family: 'Raleway', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
 /* $body-font-family: Optima, 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; */
 $body-antialiased: true;
 $global-margin: 1rem;
@@ -522,7 +522,7 @@ $tab-background-active: $white;
 $tab-item-font-size: rem-calc(12);
 /* $tab-item-background-hover: $white; */
 $tab-item-background-hover: scale-color(map-get($foundation-palette, secondary), $lightness: 25%);
-$tab-item-padding: 1.25rem 1.75rem; // 1.5rem;
+$tab-item-padding: 1rem 1rem 1rem 1rem; // 1.5rem;
 /* $tab-item-padding: 0px 2em; */
 $tab-expand-max: 6;
 $tab-content-background: $white;
@@ -580,7 +580,7 @@ $topbar-unstack-breakpoint: medium;
 
 /* My settings */
 
-.card-form {
+.card-form-2 {
   position: relative;
   top: 25px;
   width: 500px;
@@ -617,6 +617,41 @@ $topbar-unstack-breakpoint: medium;
   }
 }
 
+.upload-form {
+
+  .tabs {
+    border-radius: 10px 10px 0 0;
+    border-width: 4px;
+  }
+
+  .tabs-content {
+    border-width: 4px;
+  }
+
+  #option-tabs { background: map-get($foundation-palette, secondary); }
+
+  .tabs-title {
+    a {
+      font-size: 1.5em;
+      color: $black;
+      font-weight: bold;
+      border-style: solid;
+      border-top-style: none;
+      border-bottom-style: none;
+      border-color: $black;
+      border-width: 3px;
+      text-align: center;
+    }
+  }
+
+  .button {
+    border-style: solid;
+    border-color: $black;
+    border-width: 2px;
+    font-weight: bold;
+  }
+}
+
 .jawn {
   font-size: 1.25em;
 }
@@ -632,3 +667,33 @@ $topbar-unstack-breakpoint: medium;
 .tabs-content {
   border-radius: 0 0 10px 10px;
 }
+
+/* .centered { */
+/*   position: fixed; */
+/*   top: 50%; */
+/*   left: 50%; */
+/*   /\* bring your own prefixes *\/ */
+/*   transform: translate(-50%, -50%); */
+/* } */
+
+.center-it {
+  margin-left: auto;
+  margin-right: auto;
+  float: none !important;
+  display: block;
+}
+
+.move-down {
+  position: relative;
+  top: 75%;
+}
+
+/* .center-it { */
+/*   margin-left: auto; */
+/*   margin-right: auto; */
+/*   float: none !important; */
+/*   display: flex; */
+/*   align-items: center; */
+/*   justify-content: center; */
+
+/* } */
