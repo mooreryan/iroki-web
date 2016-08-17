@@ -9,6 +9,9 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
+#set the default driver
+Capybara.javascript_driver = :webkit
+
 include ApplicationHelper
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

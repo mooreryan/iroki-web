@@ -1,49 +1,11 @@
 .row
   .row
     ul.tabs#option-tabs data-tabs=""
-      .small-6.columns
+      .small-5.columns.center-it
         li.tabs-title.is-active.center-it
-          a href="#explicit-options" Explicit
-      .small-6.columns
-        li.tabs-title.center-it
-          a href="#gradient-options" Gradient
+          a href="" Upload
 .row.tabs-content data-tabs-content="option-tabs"
-  .row.tabs-panel.is-active#explicit-options
-    hr.row
-    = form_tag({controller: "pages", action: "submit"}, multipart: true) do
-      .row
-        h4 Files
-        .row
-          = label_tag :newick_file
-          = file_field_tag :newick_file
-        .row
-          = label_tag :color_map
-          = file_field_tag :color_map
-        .row
-          = label_tag :name_map
-          = file_field_tag :name_map
-      hr.row
-      .row
-        h4 Options
-        .row
-          .medium-4.columns
-            = check_box_tag(:color_branches)
-            = label_tag(:color_branches, "Color branches?")
-          .medium-4.columns
-            = check_box_tag(:color_labels)
-            = label_tag(:color_labels, "Color labels?")
-          .medium-4.columns
-            = check_box_tag(:exact)
-            = label_tag(:exact, "Exact matching?")
-        .row
-          .row
-            = label_tag(:auto_color, "Auto color palettes")
-          .row
-            = select_tag(:auto_color, options_for_select([["Kelly", "kelly"]]))
-      hr.row
-      .row
-        = submit_tag "Submit", class: "expanded button secondary please-wait", id: "exact-submit"
-  .row.tabs-panel#gradient-options
+  .row.tabs-panel.is-active
     hr.row
     = form_tag({controller: "pages", action: "submit"}, multipart: true) do
       .row
@@ -73,6 +35,11 @@
           .medium-4.columns
             = check_box_tag(:exact)
             = label_tag(:exact, "Exact matching?")
+        .row
+          .row
+            = label_tag(:auto_color, "Auto color palettes")
+          .row
+            = select_tag(:auto_color, options_for_select([["Kelly", "kelly"]]))
       hr.row
       .row
         h4 Gradient type
@@ -85,4 +52,4 @@
             = label_tag(:single_color_false, "Two color")
       hr.row
       .row
-        = submit_tag "Submit", class: "expanded button secondary please-wait", id: "gradient-submit"
+        = submit_tag "Submit", class: "expanded button secondary please-wait"

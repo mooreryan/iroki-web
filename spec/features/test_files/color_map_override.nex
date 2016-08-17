@@ -1,19 +1,15 @@
 #NEXUS
 begin taxa;
-dimensions ntax=7;
+dimensions ntax=3;
 taxlabels
-'s1'[&!color="#00FF00"]
+'LeBron (James)'[&!color="#FF00FF"]
 's2'[&!color="#0000FF"]
-'s3'[&!color="#0000FF"]
-'s4'[&!color="#0000FF"]
-'s5'[&!color="#FF0000"]
-'s6'
-'s7'[&!color="#0000FF"]
+'s3'[&!color="#00FFFF"]
 ;
 end;
 
 begin trees;
-  tree tree_1 = [&R] ('s1'[&!color="#00FF00"],('s2'[&!color="#FF0000"],('s3'[&!color="#FF0000"],('s4'[&!color="#FF0000"],('s5'[&!color="#0000FF"],('s6'[&!color="#FF0000"],'s7'))))));
+  tree tree_1 = [&R] ('LeBron (James)'[&!color="#00FF00"],('s2'[&!color="#FF00FF"],'s3'[&!color="#00FFFF"]));
 
 end;
 

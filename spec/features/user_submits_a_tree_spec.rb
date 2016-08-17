@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User submits a tree' do
+feature 'User submits a tree', js: true do
   let(:test_files) { File.join File.dirname(__FILE__), "test_files" }
   let(:basic_tre) { File.join test_files, "basic.tre" }
 
@@ -38,6 +38,16 @@ feature 'User submits a tree' do
   let(:two_group_tre) { File.join test_files, "two_group.tre" }
   let(:two_group_nex) { File.join test_files, "two_group.nex" }
 
+  let(:color_map_override_biom) {
+    File.join test_files, "color_map_override.biom" }
+  let(:color_map_override_tre) {
+    File.join test_files, "color_map_override.tre" }
+  let(:color_map_override_nex) {
+    File.join test_files, "color_map_override.nex" }
+  let(:color_map_override_color_map) {
+    File.join test_files, "color_map_override.color_map" }
+  let(:color_map_override_name_map) {
+    File.join test_files, "color_map_override.name_map" }
 
   context "good input" do
     scenario "they want to color branches with exact matching" do
@@ -50,6 +60,8 @@ feature 'User submits a tree' do
 
       click_button "Submit"
 
+      screenshot_it
+
       expect_the_downloaded_nexus_file_to_be basic_branches
     end
 
@@ -61,6 +73,8 @@ feature 'User submits a tree' do
       check :color_branches
 
       click_button "Submit"
+
+      screenshot_it
 
       expect_the_downloaded_nexus_file_to_be basic_branches_regex
     end
@@ -75,6 +89,8 @@ feature 'User submits a tree' do
 
       click_button "Submit"
 
+      screenshot_it
+
       expect_the_downloaded_nexus_file_to_be basic_labels
     end
 
@@ -87,11 +103,15 @@ feature 'User submits a tree' do
 
       click_button "Submit"
 
+      screenshot_it
+
       expect_the_downloaded_nexus_file_to_be basic_labels_regex
     end
 
     scenario "they want to color labels and branches with exact matching" do
       visit root_path
+
+      # page.execute_script "$('div#explicit-options input#newick-file').show()"
 
       attach_file :newick_file, basic_tre
       attach_file :color_map, basic_color_map_with_tags
@@ -101,9 +121,11 @@ feature 'User submits a tree' do
 
       click_button "Submit"
 
+      # for some reason this only passes when this method is called
+      screenshot_it
+
       expect_the_downloaded_nexus_file_to_be basic_labels_and_branches
     end
-
 
     scenario "they want to color labels and branches with regex matching" do
       visit root_path
@@ -114,6 +136,8 @@ feature 'User submits a tree' do
       check :color_branches
 
       click_button "Submit"
+
+      screenshot_it
 
       expect_the_downloaded_nexus_file_to_be basic_labels_and_branches_regex
     end
@@ -129,118 +153,138 @@ feature 'User submits a tree' do
 
       click_button "Submit"
 
+      screenshot_it
+
       expect_the_downloaded_nexus_file_to_be auto_color_nex
     end
-  end
 
-  context "with bad input it doesn't blow up" do
-    # need to update this in iroki library
-    it "actually gives good error messages"
-
-    scenario "they click submit with out doing anything" do
+    scenario "they want gradient colors and a color map to overide some" do
       visit root_path
 
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "they only supply the newick file" do
-      visit root_path
-
-      attach_file :newick_file, basic_tre
-
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "they upload a tree and color map with no coloring options" do
-      visit root_path
-
-      attach_file :newick_file, basic_tre
-      attach_file :color_map, basic_color_map_regex
-
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "when only the newick file is given" do
-      visit root_path
-
-      attach_file :newick_file, basic_tre
-
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "when only the color map file is given" do
-      visit root_path
-
-      attach_file :color_map, basic_color_map_with_tags
-
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "when only the name map file is given" do
-      visit root_path
-
-      attach_file :name_map, empty_name_map
-
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "when only the biom file is given" do
-      visit root_path
-
-      attach_file :biom_file, two_group_biom
-
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "when given newick, color branches and neither biom nor color map" do
-      visit root_path
-
-      attach_file :newick_file, basic_tre
-      check :color_branches
-
-      click_button "Submit"
-
-      expect_to_see_the_error_page
-    end
-
-    scenario "when given newick, color labels and neither biom nor color map" do
-      visit root_path
-
-      attach_file :newick_file, basic_tre
+      attach_file :newick_file, color_map_override_tre
+      attach_file :color_map, color_map_override_color_map
+      attach_file :name_map, color_map_override_name_map
+      attach_file :biom_file, color_map_override_biom
       check :color_labels
+      check :color_branches
+      check :exact
 
       click_button "Submit"
 
-      expect_to_see_the_error_page
+      screenshot_it
+
+      expect_the_downloaded_nexus_file_to_be color_map_override_nex
     end
 
-    scenario "when given biom file but no color options" do
-      visit root_path
+    context "with bad input it doesn't blow up" do
+      # need to update this in iroki library
+      it "actually gives good error messages"
 
-      attach_file :biom_file, two_group_biom
+      scenario "they click submit with out doing anything" do
+        visit root_path
 
-      click_button "Submit"
+        click_button "Submit"
 
-      expect_to_see_the_error_page
+        expect_to_see_the_error_page
+      end
+
+      scenario "they only supply the newick file" do
+        visit root_path
+
+        attach_file :newick_file, basic_tre
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "they upload a tree and color map with no coloring options" do
+        visit root_path
+
+        attach_file :newick_file, basic_tre
+        attach_file :color_map, basic_color_map_regex
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when only the newick file is given" do
+        visit root_path
+
+        attach_file :newick_file, basic_tre
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when only the color map file is given" do
+        visit root_path
+
+        attach_file :color_map, basic_color_map_with_tags
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when only the name map file is given" do
+        visit root_path
+
+        attach_file :name_map, empty_name_map
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when only the biom file is given" do
+        visit root_path
+
+        attach_file :biom_file, two_group_biom
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when given newick, color branches and neither biom nor color map" do
+        visit root_path
+
+        attach_file :newick_file, basic_tre
+        check :color_branches
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when given newick, color labels and neither biom nor color map" do
+        visit root_path
+
+        attach_file :newick_file, basic_tre
+        check :color_labels
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when given biom file but no color options" do
+        visit root_path
+
+        attach_file :biom_file, two_group_biom
+
+        click_button "Submit"
+
+        expect_to_see_the_error_page
+      end
+
+      scenario "when given --single-color with no biom file"
+
+      scenario "when given --single-color with two group biom file"
     end
-
-    scenario "when given --single-color with no biom file"
-
-    scenario "when given --single-color with two group biom file"
   end
 end
 # see http://collectiveidea.com/blog/archives/2012/01/27/testing-file-downloads-with-capybara-and-chromedriver/
@@ -253,4 +297,14 @@ end
 
 def expect_to_see_the_error_page
   expect(page).to have_css "h1", text: "Error"
+end
+
+def screenshot_it
+  save_screenshot File.join File.dirname(__FILE__), "test_files", "screenshot.png"
+end
+
+def write_html
+  File.open("/Users/moorer/Desktop/test.html", "w") do |f|
+    f.puts page.html
+  end
 end

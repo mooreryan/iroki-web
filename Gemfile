@@ -35,6 +35,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
   gem 'capybara', '~> 2.6', '>= 2.6.2'
+  gem 'capybara-webkit'
 end
 
 group :development do
@@ -47,5 +48,5 @@ end
 
 gem 'slim-rails', '~> 3.0', '>= 3.0.1'
 gem 'foundation-rails', '~> 6.2', '>= 6.2.0.1'
-gem 'iroki', '~> 0.0.11'
+gem 'iroki', '~> 0.0.17'
 # gem 'carrierwave', '~> 0.11.0'
