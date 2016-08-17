@@ -14,3 +14,5 @@
 
 config/secrets.yml
 Gemfile.lock
+
+spec/features/test_files/screenshot.png
