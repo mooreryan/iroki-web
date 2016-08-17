@@ -33,20 +33,34 @@ class PagesController < ApplicationController
     begin
       flash.now[:notice] = "Processing #{newick_path}"
 
-      Iroki::Main::main(color_branches: @color_branches,
-                        color_taxa_names: @color_labels,
-                        exact: @exact,
-                        remove_bootstraps_below: @remove_below.to_f,
-                        color_map_f: color_map_path,
-                        biom_f: biom_file_path,
-                        single_color: @single_color,
-                        name_map_f: name_map_path,
-                        auto_color: @auto_color,
-                        display_auto_color_options: nil,
-                        newick_f: newick_path,
-                        out_f: outf.path)
+      # Iroki::Main::main(color_branches: @color_branches,
+      #                   color_taxa_names: @color_labels,
+      #                   exact: @exact,
+      #                   remove_bootstraps_below: @remove_below.to_f,
+      #                   color_map_f: color_map_path,
+      #                   biom_f: biom_file_path,
+      #                   single_color: @single_color,
+      #                   name_map_f: name_map_path,
+      #                   auto_color: @auto_color,
+      #                   display_auto_color_options: nil,
+      #                   newick_f: newick_path,
+      #                   out_f: outf.path)
+
+      IrokiJob.perform_later(color_branches: @color_branches,
+                             color_taxa_names: @color_labels,
+                             exact: @exact,
+                             remove_bootstraps_below: @remove_below.to_f,
+                             color_map_f: color_map_path,
+                             biom_f: biom_file_path,
+                             single_color: @single_color,
+                             name_map_f: name_map_path,
+                             auto_color: @auto_color,
+                             display_auto_color_options: nil,
+                             newick_f: newick_path,
+                             out_f: outf.path)
 
       send_file outf.path, type: "text"
+      # redirect_to about_path
     rescue AbortIf::Exit => e
       @apple ||= e.message
       render :error

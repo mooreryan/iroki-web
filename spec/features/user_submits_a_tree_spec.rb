@@ -49,7 +49,26 @@ feature 'User submits a tree', js: true do
   let(:color_map_override_name_map) {
     File.join test_files, "color_map_override.name_map" }
 
+  let(:color_map_has_entries_not_in_tree_nex) {
+    File.join test_files, "color_map_has_entries_not_in_tree.nex" }
+
   context "good input" do
+    scenario "the color map file has more entries than the tree file" do
+      visit root_path
+
+      attach_file :newick_file, two_group_tre
+      attach_file :color_map, basic_color_map_with_tags
+      check :color_branches
+      check :color_labels
+      check :exact
+
+      click_button "Submit"
+
+      screenshot_it
+
+      expect_the_downloaded_nexus_file_to_be color_map_has_entries_not_in_tree_nex
+    end
+
     scenario "they want to color branches with exact matching" do
       visit root_path
 
@@ -280,6 +299,8 @@ feature 'User submits a tree', js: true do
 
         expect_to_see_the_error_page
       end
+
+      scenario "when Iroki::Main::main raises an AbortIf::Assert::AssertionFailureError"
 
       scenario "when given --single-color with no biom file"
 
