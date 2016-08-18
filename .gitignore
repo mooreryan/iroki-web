@@ -13,6 +13,6 @@
 /tmp
 
 config/secrets.yml
-Gemfile.lock
+# Gemfile.lock
 
 spec/features/test_files/screenshot.png
