@@ -12,7 +12,8 @@
 !/log/.keep
 /tmp
 
-config/secrets.yml
+# config/secrets.yml
 # Gemfile.lock
+.env
 
 spec/features/test_files/screenshot.png
