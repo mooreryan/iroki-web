@@ -52,6 +52,43 @@ feature 'User submits a tree', js: true do
   let(:color_map_has_entries_not_in_tree_nex) {
     File.join test_files, "color_map_has_entries_not_in_tree.nex" }
 
+  let(:issue_2_tre) {
+    File.join test_files, "issue_2", "tree" }
+  let(:issue_2_color_map) {
+    File.join test_files, "issue_2", "color_map" }
+  let(:issue_2_name_map) {
+    File.join test_files, "issue_2", "name_map" }
+  let(:issue_2_biom) {
+    File.join test_files, "issue_2", "biom" }
+
+  scenario "when user uploads a tree put a splash page acknowledging download"
+  scenario "just tree and name map, no duplicate taxon s3"
+  scenario "the name of the download file has a full timestamp"
+  scenario "when user selects single or two color gradient the value is passed as a boolean not a string"
+  scenario "it grays out the gradient type if there is no biom file"
+  scenario "it grays out the coloring option if no coloring map"
+  scenario "it handles iroki.net issue 2 (pineapple cheesecake)"
+
+  # context "iroki-web issue 2 (pineapple cheesecake)" do
+  #   it "doesn't raise TypeError" do
+  #     expect {
+  #       visit root_path
+
+  #       attach_file :newick_file, issue_2_tre
+  #       attach_file :color_map, issue_2_color_map
+  #       attach_file :name_map, issue_2_name_map
+  #       attach_file :biom_file, issue_2_biom
+
+  #       check :color_branches
+  #       check :color_labels
+
+  #       click_button "Submit"
+
+  #       screenshot_it "issue_2.png"
+  #     }.not_to raise_error
+  #   end
+  # end
+
   context "good input" do
     scenario "the color map file has more entries than the tree file" do
       visit root_path
@@ -320,8 +357,8 @@ def expect_to_see_the_error_page
   expect(page).to have_css "h1", text: "Error"
 end
 
-def screenshot_it
-  save_screenshot File.join File.dirname(__FILE__), "test_files", "screenshot.png"
+def screenshot_it fname="screenshot.png"
+  save_screenshot File.join File.dirname(__FILE__), "test_files", "screenshots", fname
 end
 
 def write_html
