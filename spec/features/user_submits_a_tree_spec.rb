@@ -69,26 +69,6 @@ feature 'User submits a tree', js: true do
   scenario "it grays out the coloring option if no coloring map"
   scenario "it handles iroki.net issue 2 (pineapple cheesecake)"
 
-  # context "iroki-web issue 2 (pineapple cheesecake)" do
-  #   it "doesn't raise TypeError" do
-  #     expect {
-  #       visit root_path
-
-  #       attach_file :newick_file, issue_2_tre
-  #       attach_file :color_map, issue_2_color_map
-  #       attach_file :name_map, issue_2_name_map
-  #       attach_file :biom_file, issue_2_biom
-
-  #       check :color_branches
-  #       check :color_labels
-
-  #       click_button "Submit"
-
-  #       screenshot_it "issue_2.png"
-  #     }.not_to raise_error
-  #   end
-  # end
-
   context "good input" do
     scenario "the color map file has more entries than the tree file" do
       visit root_path
@@ -335,6 +315,25 @@ feature 'User submits a tree', js: true do
         click_button "Submit"
 
         expect_to_see_the_error_page
+      end
+
+      context "iroki-web issue 2 (pineapple cheesecake)" do
+        it "renders the error page" do
+          visit root_path
+
+          attach_file :newick_file, issue_2_tre
+          attach_file :color_map, issue_2_color_map
+          attach_file :name_map, issue_2_name_map
+          attach_file :biom_file, issue_2_biom
+
+          check :color_branches
+          check :color_labels
+
+          click_button "Submit"
+
+          # screenshot_it "issue_2.png"
+          expect_to_see_the_error_page
+        end
       end
 
       scenario "when Iroki::Main::main raises an AbortIf::Assert::AssertionFailureError"
